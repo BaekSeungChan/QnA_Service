@@ -164,7 +164,7 @@ public class MainController {
                 .stream()
                 .filter(a -> a.getId() == id)
                 .findFirst()
-                .get();
+                .orElse(null);
 
         return article;
     }
