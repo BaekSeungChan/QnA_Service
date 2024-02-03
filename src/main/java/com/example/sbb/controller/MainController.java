@@ -211,6 +211,20 @@ public class MainController {
     }
 
 
+    @GetMapping("/addPersonOnlyWay")
+    @ResponseBody
+    public Person addPersonOnlyWay(int id, int age, String name){
+        return new Person(id, age, name);
+    }
+
+    @GetMapping("/addPerson")
+    @ResponseBody
+    public Person addPerson(Person p){
+        return p;
+    }
+
+
+
     @AllArgsConstructor
     @Getter
     @Setter
@@ -226,4 +240,13 @@ public class MainController {
             this(++lastId, title, body);
         }
     }
+
+    @AllArgsConstructor
+    @Getter
+    class Person{
+        private int id;
+        private int age;
+        private String name;
+    }
+
 }
