@@ -85,4 +85,14 @@ class SbbApplicationTests {
 
     }
 
+    @Test
+    void testJpa7(){
+        assertEquals(2, questionRepository.count());
+        Optional<Question> oq  = questionRepository.findById(1);
+        assertThat(oq.isPresent());
+        Question q = oq.get();
+        questionRepository.delete(q);
+        assertEquals(1, questionRepository.count());
+    }
+
 }
