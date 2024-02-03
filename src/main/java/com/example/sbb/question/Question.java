@@ -1,9 +1,11 @@
 package com.example.sbb.question;
 
+import com.example.sbb.answer.Answer;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity // 아래 Question 클래스는 엔티티 클래스이다.
@@ -22,5 +24,7 @@ public class Question {
 
     private LocalDateTime createDate;
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    private List<Answer> answerList;
 
 }
