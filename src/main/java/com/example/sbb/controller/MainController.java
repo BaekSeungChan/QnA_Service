@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MainController {
 
+    private int increaseNo = -1;
 
     @RequestMapping("/sbb")
     // 아래 함수의 리턴값을 그대로 브라우저에 표시
@@ -36,11 +37,16 @@ public class MainController {
     }
 
 
-//    @GetMapping("/page2")
-//    @ResponseBody
-//    public String showPost(){
-//        return """
-//               <h1>안녕하세요. POST 방식으로 오신걸 환영합니다.</h1>
-//               """;
-//    }
+    @GetMapping("/plus")
+    @ResponseBody
+    public int showPlus(int a, int b){
+        return a + b;
+    }
+
+    @GetMapping("/increase")
+    @ResponseBody
+    public int showIncrease(){
+        increaseNo++;
+        return increaseNo;
+    }
 }
