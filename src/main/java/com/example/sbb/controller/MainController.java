@@ -1,7 +1,13 @@
 package com.example.sbb.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class MainController {
@@ -36,6 +42,16 @@ public class MainController {
                """.formatted(age);
     }
 
+    // JSP 서블릿 방식으로 했을 경웋
+    @GetMapping("/plus2")
+    @ResponseBody
+    public void showPlus2(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        int a = Integer.parseInt(req.getParameter("a"));
+        int b = Integer.parseInt(req.getParameter("b"));
+
+        resp.getWriter().append(a + b + "");
+    }
+
 
     @GetMapping("/plus")
     @ResponseBody
@@ -48,5 +64,47 @@ public class MainController {
     public int showIncrease(){
         increaseNo++;
         return increaseNo;
+    }
+
+    @GetMapping("/gugudan")
+    @ResponseBody
+    public String showGugudan(int dan, int limit){
+        String rs = "";
+
+        for(int i = 1; i <= limit; i++){
+            rs += "%d * %d = %d<br>\n".formatted(dan, i, dan * i);
+        }
+        return rs;
+    }
+    //http://localhost:8080/gugudan?dan=2&limit=9
+
+
+    @GetMapping("/gugudan2")
+    @ResponseBody
+    public String showGugudan2(Integer dan, Integer limit){
+        if(null == dan){
+            dan = 9;
+        }
+
+        if(limit == null){
+            limit = 9;
+        }
+
+
+        final Integer finalDan = dan;
+        return IntStream.rangeClosed(1, limit)
+                .mapToObj(i -> "%d * %d = %d".formatted(finalDan, i, finalDan * i))
+                .collect(Collectors.joining("<br>"));
+    }
+
+    @GetMapping("/mbti/{name}")
+    @ResponseBody
+    public String showMbti(@PathVariable String name){
+        String rs = switch (name){
+            case "홍길동" -> "INFP";
+            default -> "모름";
+        };
+
+        return rs;
     }
 }
