@@ -21,4 +21,15 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
    @Transactional
    @Query(value = "TRUNCATE TABLE question", nativeQuery = true)
     void truncate();
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "SET FOREIGN_KEY_CHECKS = 0", nativeQuery = true)
+
+   void disableForeignKeyChecks();
+    @Modifying
+    @Transactional
+    @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
+   void enableForeignKeyChecks();
 }

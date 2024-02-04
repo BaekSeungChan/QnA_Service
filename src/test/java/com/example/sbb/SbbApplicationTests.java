@@ -38,7 +38,9 @@ class SbbApplicationTests {
 
         System.out.println(q2.getId());
 
+        questionRepository.disableForeignKeyChecks();
         questionRepository.truncate();
+        questionRepository.enableForeignKeyChecks();
 
     }
 
