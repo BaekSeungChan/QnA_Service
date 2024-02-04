@@ -13,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class QuestionApplicationTests {
+class QuestionRepositoryTests {
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -24,16 +24,12 @@ class QuestionApplicationTests {
     @BeforeEach
     void beforeEach() {
         clearData();
-        clearSampleData();
+        createSampleData();
     }
 
-    private void clearData() {
-        questionRepository.disableForeignKeyChecks();
-        questionRepository.truncate();
-        questionRepository.enableForeignKeyChecks();
-    }
 
-    private void clearSampleData() {
+
+    public static int createSampleData(QuestionRepository questionRepository) {
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -46,14 +42,30 @@ class QuestionApplicationTests {
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setCreateDate(LocalDateTime.now());
 
-        this.questionRepository.save(q2);  // 두번쨰 질문 저장
+        questionRepository.save(q2);  // 두번쨰 질문 저장
 
         assertThat(q1.getId()).isGreaterThan(0);
         assertThat(q2.getId()).isGreaterThan(q1.getId());
 
-        lastSampleDateId = q2.getId();
+        return q2.getId();
 
     }
+
+    private void createSampleData(){
+        lastSampleDateId = createSampleData(questionRepository);
+    }
+
+    public static void clearData(QuestionRepository questionRepository) {
+        questionRepository.disableForeignKeyChecks();
+        questionRepository.truncate();
+        questionRepository.enableForeignKeyChecks();
+    }
+
+    private void clearData() {
+        clearData(questionRepository);
+    }
+
+
 
     @Test
     void 저장() {

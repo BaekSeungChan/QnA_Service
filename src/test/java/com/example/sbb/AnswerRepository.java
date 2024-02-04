@@ -25,32 +25,21 @@ public class AnswerRepository {
     @BeforeEach
     void beforeEach() {
         clearData();
-        clearSampleData();
+        createSampleData();
     }
 
     private void clearData() {
+        QuestionRepositoryTests.clearData(questionRepository);
         questionRepository.disableForeignKeyChecks();
         answerRepository.truncate();
         questionRepository.enableForeignKeyChecks();
     }
 
-    private void clearSampleData() {
-        // question을 만든다.
-        Question q1 = new Question();
-        q1.setSubject("sbb가 무엇인가요?");
-        q1.setContent("sbb에 대해서 알고 싶습니다.");
-        q1.setCreateDate(LocalDateTime.now());
-
-        questionRepository.save(q1);
-
-        Question q2 = new Question();
-        q2.setSubject("스프링부트 모델 질문입니다.");
-        q2.setContent("id는 자동으로 생성되나요?");
-        q2.setCreateDate(LocalDateTime.now());
-
-        this.questionRepository.save(q2);  // 두번쨰 질문 저장
-
+    private void createSampleData() {
+        QuestionRepositoryTests.createSampleData(questionRepository);
     }
+
+
 
     @Test
     void 저장(){
