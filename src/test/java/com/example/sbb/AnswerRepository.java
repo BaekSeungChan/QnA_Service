@@ -39,8 +39,6 @@ public class AnswerRepository {
         QuestionRepositoryTests.createSampleData(questionRepository);
     }
 
-
-
     @Test
     void 저장(){
         Question q = questionRepository.findById(2).get();
