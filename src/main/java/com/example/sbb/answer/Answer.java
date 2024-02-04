@@ -2,9 +2,11 @@ package com.example.sbb.answer;
 
 import com.example.sbb.question.Question;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 public class Answer {
 
