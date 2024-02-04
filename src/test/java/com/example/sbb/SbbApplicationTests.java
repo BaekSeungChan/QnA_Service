@@ -27,6 +27,8 @@ class SbbApplicationTests {
 
         this.questionRepository.save(q1); // 첫번째 질문 저장
 
+        System.out.println(q1.getId());
+
         Question q2 = new Question();
         q2.setSubject("스프링부트 모델 질문입니다.");
         q2.setContent("id는 자동으로 생성되나요?");
@@ -34,9 +36,42 @@ class SbbApplicationTests {
 
         this.questionRepository.save(q2);  // 두번쨰 질문 저장
 
+        System.out.println(q2.getId());
+
+        questionRepository.truncate();
+
+    }
+
+    @Test
+    void testJpa1(){
+        Question q1 = new Question();
+        q1.setSubject("sbb가 무엇인가요?");
+        q1.setContent("sbb에 대해서 알고 싶습니다.");
+        q1.setCreateDate(LocalDateTime.now());
+
+        this.questionRepository.save(q1); // 첫번째 질문 저장
+
+        System.out.println(q1.getId());
+
+        Question q2 = new Question();
+        q2.setSubject("스프링부트 모델 질문입니다.");
+        q2.setContent("id는 자동으로 생성되나요?");
+        q2.setCreateDate(LocalDateTime.now());
+
+        this.questionRepository.save(q2);  // 두번쨰 질문 저장
+
+        System.out.println(q2.getId());
+
+
         assertThat(q1.getId()).isGreaterThan(0);
         assertThat(q2.getId()).isGreaterThan(q1.getId());
+
     }
+
+//    @Test
+//    void testJpa0(){
+//        questionRepository.truncate();
+//    }
 
     @Test
     void testJpa2(){
@@ -50,10 +85,10 @@ class SbbApplicationTests {
 
     @Test
     void testJpa3(){
-        Question q = questionRepository.findByContent("sbb가 무엇인가요?");
+        Question q = questionRepository.findByContent("id는 자동으로 생성되나요?");
 
 
-        assertEquals(q.getContent(), "sbb에 대해서 알고 싶습니다.");
+        assertEquals(q.getContent(), "id는 자동으로 생성되나요?");
     }
 
 
