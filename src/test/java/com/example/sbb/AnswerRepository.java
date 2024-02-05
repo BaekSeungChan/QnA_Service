@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 public class AnswerRepository {
 
@@ -67,6 +69,12 @@ public class AnswerRepository {
         a.setCreateDate(LocalDateTime.now());
 
         answerRepository.save(a);
+    }
+
+    @Test
+    void 조회(){
+        Answer a = answerRepository.findById(1).get();
+        assertThat(a.getContent()).isEqualTo("sbb는 질문답변 게시판입니다.");
     }
 
 }
