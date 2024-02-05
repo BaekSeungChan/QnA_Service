@@ -21,7 +21,6 @@ public class AnswerRepository {
 
     private static int lastSampleDateId;
 
-    @Test
     @BeforeEach
     void beforeEach() {
         clearData();
@@ -30,9 +29,12 @@ public class AnswerRepository {
 
     private void clearData() {
         QuestionRepositoryTests.clearData(questionRepository);
-        questionRepository.disableForeignKeyChecks();
-        answerRepository.truncate();
-        questionRepository.enableForeignKeyChecks();
+
+        answerRepository.truncateTable();
+    }
+
+    private void truncate(){
+
     }
 
     private void createSampleData() {
@@ -44,7 +46,7 @@ public class AnswerRepository {
         Question q = questionRepository.findById(2).get();
 
         Answer a = new Answer();
-        a.setContent("네 자동으로 생성됩니다.");
+        a.setContent("네 자동으로 생성됩니다11.");
         a.setQuestion(q);
         a.setCreateDate(LocalDateTime.now());
 
