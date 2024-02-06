@@ -20,6 +20,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer>, Re
 
    @Modifying
    @Transactional
-   @Query(value = "TRUNCATE TABLE question", nativeQuery = true)
+   @Query(value = "ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)
     void truncate();
 }
